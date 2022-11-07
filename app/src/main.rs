@@ -63,18 +63,6 @@ fn main() -> ! {
 
     // External crystal on the Pico board is 12 Mhz
     let xtal_freq_hz = 12_000_000u32;
-    // let clocks = init_clocks_and_plls(
-    //     xtal_freq_hz,
-    //     pac.XOSC,
-    //     pac.CLOCKS,
-    //     pac.PLL_SYS,
-    //     pac.PLL_USB,
-    //     &mut pac.RESETS,
-    //     &mut watchdog,
-    // )
-    // .ok()
-    // .unwrap();
-
     let xosc = setup_xosc_blocking(pac.XOSC, xtal_freq_hz.Hz())
         .ok()
         .unwrap();
@@ -144,18 +132,9 @@ fn main() -> ! {
     }
 }
 
+#[derive(Default)]
 struct InfoScreen {
     msg_index: usize,
-    //scroll_x_offset: u32,
-}
-
-impl Default for InfoScreen {
-    fn default() -> Self {
-        Self {
-            msg_index: 0,
-            // scroll_x_offset: 0,
-        }
-    }
 }
 
 impl InfoScreen {
@@ -192,34 +171,6 @@ impl InfoScreen {
         cursor = Text::with_alignment(email, cursor, char_style_medium, Alignment::Center)
             .draw(disp)
             .unwrap();
-
-        // Horizontal scrolling. Too ugly with that low framerate.
-        //
-        // cursor.x = -(self.scroll_x_offset as i32);
-        // cursor.y += char_style_medium.font.baseline as i32 + 16;
-        // cursor = Text::with_alignment(company, cursor, char_style_medium, Alignment::Left)
-        //     .draw(disp)
-        //     .unwrap();
-        // if cursor.x <= 0 {
-        //     self.scroll_x_offset = 0;
-        // }
-        // let disp_width = disp.get_dimensions().0 as i32;
-        // if cursor.x < disp_width {
-        //     _ = Text::with_alignment(company, cursor, char_style_medium, Alignment::Left)
-        //         .draw(disp)
-        //         .unwrap();
-        // } else {
-        //     // Render off-screen to keep the timing the same every frame
-        //     Text::with_alignment(
-        //         company,
-        //         Point::new(128, 128),
-        //         char_style_medium,
-        //         Alignment::Left,
-        //     )
-        //     .draw(disp)
-        //     .unwrap();
-        // }
-        // self.scroll_x_offset += 6;
 
         cursor.x = 63;
         cursor.y += char_style_medium.font.baseline as i32 + 16;
