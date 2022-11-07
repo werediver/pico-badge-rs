@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "request": "launch",
+      "type": "cortex-debug",
+      "name": "Debug with BMP",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceRoot}/target/thumbv6m-none-eabi/debug/app",
+      "preLaunchTask": "Cargo build",
+      "servertype": "bmp",
+      "BMPGDBSerialPort": "/dev/cu.usbmodem98B6AFC21",
+      "powerOverBMP": "enable",
+      "preLaunchCommands": [
+        "monitor rtt enable"
+      ],
+      "showDevDebugOutput": "raw"
+    }
+  ]
+}
